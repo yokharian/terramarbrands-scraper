@@ -4,6 +4,7 @@
 .idea
 .vscode
 .zed
+.env
 dist
 node_modules
 apify_storage
