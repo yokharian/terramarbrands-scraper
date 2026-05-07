@@ -1,25 +1,41 @@
 {
     "$schema": "https://apify.com/schemas/v1/input.ide.json",
-    "title": "PlaywrightCrawler Template",
+    "title": "Terramar Brands Product Scraper",
     "type": "object",
     "schemaVersion": 1,
     "properties": {
         "startUrls": {
             "title": "Start URLs",
             "type": "array",
-            "description": "URLs to start with.",
+            "description": "URLs to start scraping from. Defaults to the Terramar Brands product catalog.",
             "editor": "requestListSources",
             "prefill": [
                 {
-                    "url": "https://apify.com"
+                    "url": "https://www.terramarbrands.com.mx/products"
+                }
+            ],
+            "default": [
+                {
+                    "url": "https://www.terramarbrands.com.mx/products"
                 }
             ]
         },
         "maxRequestsPerCrawl": {
             "title": "Max Requests per Crawl",
             "type": "integer",
-            "description": "Maximum number of requests that can be made by this crawler.",
-            "default": 100
+            "description": "Maximum number of requests. Only ~10 API calls are needed for the full catalog.",
+            "default": 50,
+            "minimum": 1
+        },
+        "proxyConfiguration": {
+            "title": "Proxy Configuration",
+            "type": "object",
+            "description": "Proxy settings. Not required — the API is public with no rate limiting.",
+            "editor": "proxy",
+            "default": {
+                "useApifyProxy": false
+            }
         }
-    }
+    },
+    "required": ["startUrls"]
 }
