@@ -47,6 +47,5 @@ Apify Actor that scrapes the full product catalog from [https://www.terramarbran
 
 - [Terramar Brands](https://www.terramarbrands.com.mx/products) — Target product catalog
 - [Implementation details →](./implementation.md) — Technical architecture, API endpoints, crawler strategy
-- [Data model →](./data-model.md) — Raw API fields, normalized output schema, Apify schema files
 - [Apify SDK Docs](https://docs.apify.com/sdk/js) — Apify JavaScript SDK
 - [Crawlee Docs](https://crawlee.dev) — Crawlee web scraping framework
