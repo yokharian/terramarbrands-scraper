@@ -1,69 +1,58 @@
-## PlaywrightCrawler template
+# Terramar Brands Product Scraper
 
-<!-- This is an Apify template readme -->
+Scrapes the full product catalog from [terramarbrands.com.mx](https://terramarbrands.com.mx/products) — a Mexican beauty-products-by-catalog e-commerce site. Calls the site's public WCF API directly (no browser needed), normalizes ~225 products across 10 departments, and outputs structured JSON to an Apify dataset.
 
-This template is a production ready boilerplate for developing an [Actor](https://apify.com/actors) with `PlaywrightCrawler`. Use this to bootstrap your projects using the most up-to-date code.
+## How to use
 
-> We decided to split Apify SDK into two libraries, Crawlee and Apify SDK v3. Crawlee will retain all the crawling and scraping-related tools and will always strive to be the best [web scraping](https://apify.com/web-scraping) library for its community. At the same time, Apify SDK will continue to exist, but keep only the Apify-specific features related to building Actors on the Apify platform. Read the upgrading guide to learn about the changes.
+1. Run this Actor on [Apify](https://apify.com) or locally with `apify run`
+2. Download results as JSON, CSV, or Excel from the dataset
 
-## Resources
+No configuration required — defaults work out of the box.
 
-If you're looking for examples or want to learn more visit:
+## Input
 
-- [Crawlee + Apify Platform guide](https://crawlee.dev/docs/guides/apify-platform)
-- [Documentation](https://crawlee.dev/api/playwright-crawler/class/PlaywrightCrawler) and [examples](https://crawlee.dev/docs/examples/playwright-crawler)
-- [Node.js tutorials](https://docs.apify.com/academy/node-js) in Academy
-- [Scraping single-page applications with Playwright](https://blog.apify.com/scraping-single-page-applications-with-playwright/)
-- [How to scale Puppeteer and Playwright](https://blog.apify.com/how-to-scale-puppeteer-and-playwright/)
-- [Integration with Zapier](https://apify.com/integrations), Make, GitHub, Google Drive and other apps
-- [Video guide on getting scraped data using Apify API](https://www.youtube.com/watch?v=ViYYDHSBAKM)
-- A short guide on how to build web scrapers using code templates:
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `baseUrl` | string | `https://terramarbrands.com.mx` | Site base URL (used to construct product/image URLs) |
+| `apiBaseUrl` | string | `https://terramarbrands.mx/wsTerramarV2/Service1.svc` | WCF API base URL |
+| `maxRequestsPerCrawl` | integer | `50` | Safety limit (only ~10 API calls needed) |
+| `proxyConfiguration` | object | `{ useApifyProxy: false }` | Proxy settings (not needed — public API) |
 
-[web scraper template](https://www.youtube.com/watch?v=u-i-Korzf8w)
+## Output
 
+Each dataset item:
 
-## Getting started
+```json
+{
+    "sku": "A",
+    "name": "Maquillaje Compacto 11.5g",
+    "price": 630,
+    "currency": "MXN",
+    "departmentId": "1",
+    "department": "Color",
+    "subdepartmentId": "1",
+    "subdepartment": "Rostro",
+    "description": "Brinda al cutis una apariencia perfecta.",
+    "application": "Pasar la esponja en el compacto.",
+    "ingredients": "Vitamina E - Actividad antioxidante.",
+    "olfactiveFamily": "",
+    "imageUrls": ["https://terramarbrands.com.mx/pics/productos/grandes/A.png"],
+    "hasCarousel": true,
+    "variantClass": "",
+    "url": "https://terramarbrands.com.mx/products/product/A"
+}
+```
 
-For complete information [see this article](https://docs.apify.com/platform/actors/development#build-actor-at-apify-console). In short, you will:
+## Cost estimate
 
-1. Build the Actor
-2. Run the Actor
+One run costs less than 0.01 compute units — the entire catalog is fetched in a few HTTP calls with no browser rendering.
 
-## Pull the Actor for local development
+## Local development
 
-If you would like to develop locally, you can pull the existing Actor from Apify console using Apify CLI:
-
-1. Install `apify-cli`
-
-    **Using Homebrew**
-
-    ```bash
-    brew install apify-cli
-    ```
-
-    **Using NPM**
-
-    ```bash
-    npm -g install apify-cli
-    ```
-
-2. Pull the Actor by its unique `<ActorId>`, which is one of the following:
-    - unique name of the Actor to pull (e.g. "apify/hello-world")
-    - or ID of the Actor to pull (e.g. "E2jjCZBezvAZnX8Rb")
-
-    You can find both by clicking on the Actor title at the top of the page, which will open a modal containing both Actor unique name and Actor ID.
-
-    This command will copy the Actor into the current directory on your local machine.
-
-    ```bash
-    apify pull <ActorId>
-    ```
-
-## Documentation reference
-
-To learn more about Apify and Actors, take a look at the following resources:
-
-- [Apify SDK for JavaScript documentation](https://docs.apify.com/sdk/js)
-- [Apify SDK for Python documentation](https://docs.apify.com/sdk/python)
-- [Apify Platform documentation](https://docs.apify.com/platform)
-- [Join our developer community on Discord](https://discord.com/invite/jyEM2PRvMU)
+```bash
+npm install
+npm run start:dev     # Run locally with tsx
+npm test              # Run test suite
+npm run validate      # Validate Apify schemas
+npm run predeploy     # Validate + test + lint before deploy
+```
