@@ -1,13 +1,13 @@
 {
     "$schema": "https://apify.com/schemas/v1/actor.ide.json",
     "actorSpecification": 1,
-    "name": "my-actor",
-    "title": "Project Playwright Crawler Typescript",
-    "description": "Crawlee and Playwright project in typescript.",
-    "version": "0.0",
+    "name": "terramar-brands-scraper",
+    "title": "Terramar Brands Product Scraper",
+    "description": "Scrapes the full product catalog from terramarbrands.com.mx via public WCF API. Extracts SKUs, prices, descriptions, categories, and images for products.",
+    "version": "1.0",
     "meta": {
         "templateId": "ts-crawlee-playwright-chrome",
-        "generatedBy": "<FILL-IN-MODEL>"
+        "generatedBy": "GLM-5.1"
     },
     "input": "./input_schema.json",
     "output": "./output_schema.json",
