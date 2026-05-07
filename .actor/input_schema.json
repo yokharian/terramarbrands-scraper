@@ -4,21 +4,17 @@
     "type": "object",
     "schemaVersion": 1,
     "properties": {
-        "startUrls": {
-            "title": "Start URLs",
-            "type": "array",
-            "description": "URLs to start scraping from. Defaults to the Terramar Brands product catalog.",
-            "editor": "requestListSources",
-            "prefill": [
-                {
-                    "url": "https://www.terramarbrands.com.mx/products"
-                }
-            ],
-            "default": [
-                {
-                    "url": "https://www.terramarbrands.com.mx/products"
-                }
-            ]
+        "baseUrl": {
+            "title": "Base URL",
+            "type": "string",
+            "description": "Base URL of the Terramar Brands website. Used to construct product page URLs and image CDN paths.",
+            "default": "https://terramarbrands.com.mx"
+        },
+        "apiBaseUrl": {
+            "title": "API Base URL",
+            "type": "string",
+            "description": "Base URL of the Terramar Brands WCF API. Used to fetch department and product data.",
+            "default": "https://terramarbrands.mx/wsTerramarV2/Service1.svc"
         },
         "maxRequestsPerCrawl": {
             "title": "Max Requests per Crawl",
@@ -37,5 +33,5 @@
             }
         }
     },
-    "required": ["startUrls"]
+    "required": []
 }
