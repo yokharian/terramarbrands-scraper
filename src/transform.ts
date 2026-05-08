@@ -3,6 +3,7 @@ import type { DepartmentLookup, ProductItem, RawApiProduct } from './types.js';
 
 export interface SiteConfig {
     baseUrl: string;
+    webImagesBaseUrl: string;
 }
 
 function stripHtml(html: string): string {
@@ -22,18 +23,22 @@ function stripHtml(html: string): string {
         .trim();
 }
 
-function buildImageUrls(product: RawApiProduct, siteConfig: SiteConfig): string[] {
+function buildImageUrls(product: RawApiProduct, webImagesBaseUrl: string, baseUrl: string): string[] {
     const urls: string[] = [];
-    urls.push(`${siteConfig.baseUrl}/pics/productos/grandes/${product.clave}.png`);
+    urls.push(`${webImagesBaseUrl}/shopping-cart/color/${product.clave}.jpg`);
     if (product.imagen) {
         const fullUrl = product.imagen.startsWith('http')
             ? product.imagen
-            : `${siteConfig.baseUrl}${product.imagen}`;
+            : `${baseUrl}${product.imagen}`;
         if (!urls.includes(fullUrl)) {
             urls.push(fullUrl);
         }
     }
     return urls;
+}
+
+function buildFichaTecnica(product: RawApiProduct, webImagesBaseUrl: string): string {
+    return `${webImagesBaseUrl}/webpage/productos/fichasTecnicas/${product.clave}.pdf`;
 }
 
 export function transformProduct(
@@ -54,7 +59,8 @@ export function transformProduct(
         application: stripHtml(raw.aplicacion),
         ingredients: stripHtml(raw.ingredientes),
         olfactiveFamily: raw.familiaOlfativa,
-        imageUrls: buildImageUrls(raw, siteConfig),
+        imageUrls: buildImageUrls(raw, siteConfig.webImagesBaseUrl, siteConfig.baseUrl),
+        fichaTecnica: buildFichaTecnica(raw, siteConfig.webImagesBaseUrl),
         hasCarousel: raw.carrusel === 'S',
         variantClass: raw.clase,
         url: `${siteConfig.baseUrl}/products/product/${raw.clave}`,

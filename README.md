@@ -36,7 +36,8 @@ Each dataset item:
     "application": "Pasar la esponja en el compacto.",
     "ingredients": "Vitamina E - Actividad antioxidante.",
     "olfactiveFamily": "",
-    "imageUrls": ["https://terramarbrands.com.mx/pics/productos/grandes/A.png"],
+    "imageUrls": ["https://webimages.terramarbrands.com.mx/shopping-cart/color/A.jpg"],
+    "fichaTecnica": "https://webimages.terramarbrands.com.mx/webpage/productos/fichasTecnicas/A.pdf",
     "hasCarousel": true,
     "variantClass": "",
     "url": "https://terramarbrands.com.mx/products/product/A"

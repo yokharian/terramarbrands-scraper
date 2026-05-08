@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { stripHtml, transformProduct } from '../src/transform.js';
-import { DEFAULT_BASE_URL, MOCK_DEPT_LOOKUP, MOCK_PRODUCT, SITE_CONFIG } from './conftest.js';
+import { DEFAULT_BASE_URL, DEFAULT_WEBIMAGES_BASE_URL, MOCK_DEPT_LOOKUP, MOCK_PRODUCT, SITE_CONFIG } from './conftest.js';
 
 describe('stripHtml', () => {
     it('should strip HTML tags and decode entities', () => {
@@ -70,7 +70,12 @@ describe('transformProduct', () => {
 
     it('should construct primary image URL from clave', () => {
         const result = transformProduct(MOCK_PRODUCT, MOCK_DEPT_LOOKUP, SITE_CONFIG);
-        expect(result.imageUrls[0]).toBe(`${DEFAULT_BASE_URL}/pics/productos/grandes/A.png`);
+        expect(result.imageUrls[0]).toBe(`${DEFAULT_WEBIMAGES_BASE_URL}/shopping-cart/color/A.jpg`);
+    });
+
+    it('should construct fichaTecnica URL from clave', () => {
+        const result = transformProduct(MOCK_PRODUCT, MOCK_DEPT_LOOKUP, SITE_CONFIG);
+        expect(result.fichaTecnica).toBe(`${DEFAULT_WEBIMAGES_BASE_URL}/webpage/productos/fichasTecnicas/A.pdf`);
     });
 
     it('should include imagen URL when present as relative path', () => {
@@ -88,7 +93,7 @@ describe('transformProduct', () => {
     });
 
     it('should not duplicate image URLs', () => {
-        const dupe = { ...MOCK_PRODUCT, imagen: `${DEFAULT_BASE_URL}/pics/productos/grandes/A.png` };
+        const dupe = { ...MOCK_PRODUCT, imagen: `${DEFAULT_WEBIMAGES_BASE_URL}/shopping-cart/color/A.jpg` };
         const result = transformProduct(dupe, MOCK_DEPT_LOOKUP, SITE_CONFIG);
         expect(result.imageUrls).toHaveLength(1);
     });
@@ -120,10 +125,11 @@ describe('transformProduct', () => {
         expect(result.subdepartment).toBe('');
     });
 
-    it('should use custom baseUrl for product URLs', () => {
-        const customConfig = { baseUrl: 'https://custom.example.com' };
+    it('should use custom baseUrl and webImagesBaseUrl for URLs', () => {
+        const customConfig = { baseUrl: 'https://custom.example.com', webImagesBaseUrl: 'https://webimages.custom.example.com' };
         const result = transformProduct(MOCK_PRODUCT, MOCK_DEPT_LOOKUP, customConfig);
         expect(result.url).toBe('https://custom.example.com/products/product/A');
-        expect(result.imageUrls[0]).toBe('https://custom.example.com/pics/productos/grandes/A.png');
+        expect(result.imageUrls[0]).toBe('https://webimages.custom.example.com/shopping-cart/color/A.jpg');
+        expect(result.fichaTecnica).toBe('https://webimages.custom.example.com/webpage/productos/fichasTecnicas/A.pdf');
     });
 });

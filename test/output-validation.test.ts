@@ -19,6 +19,7 @@ const REQUIRED_FIELDS: (keyof ProductItem)[] = [
     'ingredients',
     'olfactiveFamily',
     'imageUrls',
+    'fichaTecnica',
     'hasCarousel',
     'variantClass',
     'url',
@@ -38,6 +39,7 @@ const TYPE_CHECKS: { field: keyof ProductItem; expected: string }[] = [
     { field: 'ingredients', expected: 'string' },
     { field: 'olfactiveFamily', expected: 'string' },
     { field: 'imageUrls', expected: 'object' },
+    { field: 'fichaTecnica', expected: 'string' },
     { field: 'hasCarousel', expected: 'boolean' },
     { field: 'variantClass', expected: 'string' },
     { field: 'url', expected: 'string' },
@@ -78,6 +80,13 @@ describe('Output shape validation', () => {
         for (const url of result.imageUrls) {
             expect(url).toMatch(/^https:\/\//);
         }
+    });
+
+    it('should produce valid fichaTecnica URL', () => {
+        const result = transformProduct(MOCK_PRODUCT, MOCK_DEPT_LOOKUP, SITE_CONFIG);
+        expect(result.fichaTecnica).toMatch(/^https:\/\//);
+        expect(result.fichaTecnica).toContain('/fichasTecnicas/');
+        expect(result.fichaTecnica).toMatch(/\.pdf$/);
     });
 
     it('should produce non-empty string fields for a typical product', () => {

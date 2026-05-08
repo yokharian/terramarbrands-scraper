@@ -1,5 +1,6 @@
 /** Test-only defaults matching .actor/input_schema.json — not imported by src/ */
 export const DEFAULT_BASE_URL = 'https://terramarbrands.com.mx';
+export const DEFAULT_WEBIMAGES_BASE_URL = 'https://webimages.terramarbrands.com.mx';
 export const DEFAULT_API_BASE_URL = 'https://terramarbrands.mx/wsTerramarV2/Service1.svc';
 export const CURRENCY = 'MXN';
 
@@ -16,7 +17,7 @@ export const MOCK_DEPT_LOOKUP: DepartmentLookup = {
     },
 };
 
-export const SITE_CONFIG = { baseUrl: DEFAULT_BASE_URL };
+export const SITE_CONFIG = { baseUrl: DEFAULT_BASE_URL, webImagesBaseUrl: DEFAULT_WEBIMAGES_BASE_URL };
 
 export const MOCK_PRODUCT: RawApiProduct = {
     id: '0',
