@@ -40,7 +40,7 @@ const crawler = new CheerioCrawler({
         if (label === 'DEPT') {
             const deptId = request.userData?.deptId as string;
             log.info(`Processing department request from department ${deptId}`);
-            const products = await fetchProducts(apiBaseUrl, deptId);
+            const products = await fetchProducts(request.url, deptId);
             log.info(`Processing ${products.length} products from department ${deptId}`);
 
             for (const raw of products) {
@@ -50,7 +50,7 @@ const crawler = new CheerioCrawler({
             log.info(`Pushed ${products.length} products from department ${deptId}`);
         } else if (label === 'CATALOG') {
             log.info('Processing catalog request');
-            const allProducts = await fetchProducts(apiBaseUrl, 0);
+            const allProducts = await fetchProducts(request.url, 0);
             log.info(`Processing ${allProducts.length} products from full catalog`);
 
             for (const raw of allProducts) {
@@ -66,7 +66,7 @@ const crawler = new CheerioCrawler({
     },
 });
 
-await crawler.run([{userData: { label: 'CATALOG' } }]);
+await crawler.run([{ url: apiBaseUrl, userData: { label: 'CATALOG' } }]);
 
 logMemory('after-crawl');
 await Actor.exit();
